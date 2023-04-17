@@ -33,19 +33,24 @@ class KnightPathFinder
         return filtered_positions
     end
 
-    # def build_move_tree
-    #     queue = [@root_node]
+    def build_move_tree
+        queue = [@root_node]
 
-    #     new_move_positions(@root_node.value)
+        while !queue.empty?
+            current_node = queue.shift
+            moves = self.new_move_positions(current_node.value)
 
+            moves.each do |child|
+                current_node.add_child(PolyTreeNode.new(child))
+            end
 
-    # end
-
-
-
-
-
+            queue += current_node.children
+        end
+    end
 
 end
+
+
+
 
 
