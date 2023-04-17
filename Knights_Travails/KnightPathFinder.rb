@@ -21,7 +21,25 @@ class KnightPathFinder
         build_move_tree
     end
 
+    def new_move_positions(pos)
+        positions = KnightPathFinder.valid_moves(pos)
+        filtered_positions = []
+        positions.each do |position|
+            if !@considered_positions.include?(position)
+                filtered_positions << position
+                @considered_positions << position
+            end
+        end
+        return filtered_positions
+    end
 
+    # def build_move_tree
+    #     queue = [@root_node]
+
+    #     new_move_positions(@root_node.value)
+
+
+    # end
 
 
 
