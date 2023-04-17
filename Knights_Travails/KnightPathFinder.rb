@@ -1,6 +1,6 @@
 require_relative "./tree_node.rb"
 class KnightPathFinder
-
+    attr_reader :considered_positions
     def self.valid_moves(pos)
         valid_positions = []
         i, j = pos
@@ -48,6 +48,29 @@ class KnightPathFinder
         end
     end
 
+    def find_path(target, current_node = @root_node)
+        return self.trace_path_back(current_node) if target == current_node.value
+
+        current_node.children.each do |child|
+            result = find_path(target, child)
+            return result if result
+        end
+        nil
+    end
+
+    def trace_path_back(node)
+        current = node
+        path = Array.new
+
+        until current == @root_node
+            path.unshift(current.value)
+            current = current.parent
+        end
+
+        path.unshift(current.value)
+
+        return path
+    end
 end
 
 
